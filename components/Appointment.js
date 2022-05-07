@@ -1,46 +1,38 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import styled from 'styled-components/native';
 
-const Group = ({ user, services, active, time }) => {
+import GrayText from "./GrayText";
+import Badge from "./Badge";
+
+import getAvatarColor from "../utils/getAvatarColor";
+
+const Appointment = ({ navigate, item }) => {
+    const { user, services, active, time } = item;
+    const avatarColors = getAvatarColor(user.fullname[0].toUpperCase());
     return (
-        <GroupItem>
-          <Avatar
-            source={{
-              uri: user.avatar
-            }}
-          />
+        <GroupItem onPress={navigate.bind(this, 'User', item)}>
+          <Avatar style={{ backgroundColor: avatarColors.background }}>
+              <Letter style={{ color: avatarColors.color }}>{user.fullname[0].toUpperCase()}</Letter>
+          </Avatar>
           <View style={{ flex: 1 }}>
             <FullName>{user.fullname}</FullName>
               <GrayText>{services}</GrayText>
           </View>
-          <GroupDate active={active}>{time}</GroupDate>
+          <Badge active={active}>{time}</Badge>
         </GroupItem>
     );
 };
 
-Group.defaultProps = {
+Appointment.defaultProps = {
     groupTitle: 'Untitled',
     items: []
 };
 
-const GroupDate = styled.Text`
-  background: ${props => (props.active ? '#2A86FF' : '#E9F5FF')};
-  color: ${props => (props.active ? '#fff' : '#4294FF')};
-  border-radius: 18px;
-  font-weight: 600;
-  font-size: 14px;
-  width: 70px;
-  height: 32px;
-  text-align: center;
-  line-height: 28px;
-`;
-
-const GrayText = styled.Text`
-  /* Тип услуги под именем */
-  font-size: 16px;
-  color: #8B979F;
+const Letter = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: -2px;
 `;
 
 const FullName = styled.Text`
@@ -48,7 +40,9 @@ const FullName = styled.Text`
   font-size: 16px;
 `;
 
-const Avatar = styled.Image`
+const Avatar = styled.View`
+  align-items: center;
+  justify-content: center;
   border-radius: 50px;
   width: 40px;
   height: 40px;
@@ -60,11 +54,12 @@ const GroupItem = styled.TouchableOpacity`
   flex-direction: row;
   padding: 20px;
   border-bottom-width: 1px;
-  border-bottom-color: #F3F3F3;
+  border-bottom-color: #E5E5E5;
 `;
 
 
 
-export default Group;
+
+export default Appointment;
 
 
