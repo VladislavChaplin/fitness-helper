@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Text, View, ActivityIndicator, Linking } from 'react-native';
+import { Text, View, ActivityIndicator, Linking, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import {Foundation, MaterialIcons, FontAwesome5, Ionicons} from '@expo/vector-icons';
 
@@ -9,6 +9,7 @@ import { useRoute } from '@react-navigation/native';
 
 import { phoneFormat } from "../utils";
 import { usersApi } from '../utils/api';
+
 
 
 
@@ -34,7 +35,7 @@ const UserScreen = ({ navigation }) => {
     <View style={{flex: 1}}>
         <UserDetails>
             <UserFullName>{route.params.user.fullname}</UserFullName>
-            <GrayText>+{route.params.user.phone}</GrayText>
+            <GrayText>{phoneFormat(route.params.user.phone)}</GrayText>
 
         <UserButton>
             <ProtocolButtonView>
@@ -49,27 +50,29 @@ const UserScreen = ({ navigation }) => {
         </UserDetails>
 
         <UserAppointment>
-            <Container>
-                {isLoading ? (
-                    <ActivityIndicator size="large" color="#2A86FF" />
-                ) : (
-                    appointments.map(appointments => (
-                    <AppointmentCard>
-                    <AppointmentCardRow>
-                        <FontAwesome5 name="clipboard-list" size={18} color="gray" />
-                        <AppointmentCardLabel style={{ marginLeft: 8}}>Номер: <Text style={{ fontWeight: 'bold' }}>{appointments.dentNumber}</Text></AppointmentCardLabel>
-                    </AppointmentCardRow>
-                    <AppointmentCardRow>
-                        <MaterialIcons name="fitness-center" size={18} color="gray" />
-                        <AppointmentCardLabel style={{ marginLeft: 4}}>Тренировка: <Text style={{ fontWeight: 'bold' }}>{appointments.services}</Text></AppointmentCardLabel>
-                    </AppointmentCardRow>
-                    <AppointmentCardRow style={{ marginTop: 15, justifyContent: 'space-between'}}>
-                        <Badge style={{ width: 165}} active>{appointments.date} - {appointments.time}</Badge>
-                        <Badge style={{ marginRight: 38}} color="green">{appointments.price} тг</Badge>
-                    </AppointmentCardRow>
-                </AppointmentCard>
-                )))}
-            </Container>
+            <ScrollView style={{ backgroundColor: "white"}}>
+                <Container>
+                    {isLoading ? (
+                        <ActivityIndicator size="large" color="#2A86FF" />
+                    ) : (
+                        appointments.map(appointments => (
+                            <AppointmentCard>
+                                <AppointmentCardRow>
+                                    <FontAwesome5 name="clipboard-list" size={18} color="gray" />
+                                    <AppointmentCardLabel style={{ marginLeft: 8}}>Номер: <Text style={{ fontWeight: 'bold' }}>{appointments.dentNumber}</Text></AppointmentCardLabel>
+                                </AppointmentCardRow>
+                                <AppointmentCardRow>
+                                    <MaterialIcons name="fitness-center" size={18} color="gray" />
+                                    <AppointmentCardLabel style={{ marginLeft: 4}}>Тренировка: <Text style={{ fontWeight: 'bold' }}>{appointments.services}</Text></AppointmentCardLabel>
+                                </AppointmentCardRow>
+                                <AppointmentCardRow style={{ marginTop: 15, justifyContent: 'space-between'}}>
+                                    <Badge style={{ width: 165}} active>{appointments.date} - {appointments.time}</Badge>
+                                    <Badge style={{ marginRight: 38}} color="green">{appointments.price} тг</Badge>
+                                </AppointmentCardRow>
+                            </AppointmentCard>
+                        )))}
+                </Container>
+            </ScrollView>
         </UserAppointment>
         <PlusButton onPress={() => navigation.navigate('AddAppointment', {userID: route.params.user._id })} >
             <Ionicons name="ios-add" size={36} color="white" />

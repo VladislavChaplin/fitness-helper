@@ -3,7 +3,6 @@ import { TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components/native';
 
 import { NativeBaseProvider, Box, FormControl, Input, Center, Stack } from "native-base";
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 import { appointmentsApi } from "../utils/api";
 
@@ -12,7 +11,7 @@ import { GrayText } from "../components";
 import { Button, Text } from "native-base";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useRoute } from "@react-navigation/native";
+import { useRoute, CommonActions } from "@react-navigation/native";
 
 
 

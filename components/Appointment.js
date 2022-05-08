@@ -19,7 +19,7 @@ const Appointment = ({ navigate, item }) => {
             <FullName>{user.fullname}</FullName>
               <GrayText>{services}</GrayText>
           </View>
-          <Badge active={active}>{time}</Badge>
+          <Badge>{time}</Badge>
         </GroupItem>
     );
 };

@@ -14,7 +14,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-const HomeScreen = ({ navigation, route }) => {
+const HomeScreen = props => {
+    const { navigation } = props;
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
@@ -25,7 +26,7 @@ const HomeScreen = ({ navigation, route }) => {
                 setData(data.data);
                 setIsLoading(false);
             })
-                .catch(e => {
+                .finally(e => {
                 setIsLoading(false);
             });
     }
