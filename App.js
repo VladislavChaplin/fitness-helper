@@ -31,7 +31,7 @@ function App() {
               title: 'Тренировки',
               headerRight: () => (
                   <TouchableOpacity onPress={() => navigation.navigate('Users')}>
-                      <Ionicons name="people" size={24} color="black" />
+                      <Ionicons name="people" size={28} color="black" />
                   </TouchableOpacity> )
           })}
         />

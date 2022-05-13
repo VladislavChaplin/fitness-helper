@@ -4,6 +4,7 @@ import {Ionicons, MaterialIcons} from '@expo/vector-icons';
 import styled from 'styled-components/native';
 import Swipeable from 'react-native-swipeable-row';
 import {Box, Input} from 'native-base';
+import { SearchBar } from '@rneui/themed';
 
 import { Appointment, SectionTitle, PlusButton } from '../components';
 import { usersApi, phoneFormat } from '../utils';
@@ -32,8 +33,9 @@ const UsersScreen = props => {
 
     useEffect(fetchPatients, [route.params]);
 
-    const onSearch = e => {
-        setSearchValue(e.nativeEvent.text);
+
+    const onSearch = (searchValue) => {
+        setSearchValue(searchValue);
     };
 
     const removePatient = id => {
@@ -69,6 +71,15 @@ const UsersScreen = props => {
         <Container>
             {data && (
                 <>
+                    <View style={{ padding: 10 }}>
+                        <SearchBar
+                            platform="android"
+                            lightTheme="true"
+                            placeholder="Поиск..."
+                            onChangeText={onSearch}
+                            value={searchValue}
+                        />
+                    </View>
                     <FlatList
                         data={data.filter(
                             item =>

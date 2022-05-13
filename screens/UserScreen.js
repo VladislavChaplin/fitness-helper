@@ -12,7 +12,6 @@ import { usersApi } from '../utils/api';
 
 
 
-
 const UserScreen = ({ navigation }) => {
     const [appointments, setAppointments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +34,7 @@ const UserScreen = ({ navigation }) => {
     <View style={{flex: 1}}>
         <UserDetails>
             <UserFullName>{route.params.user.fullname}</UserFullName>
-            <GrayText>{phoneFormat(route.params.user.phone)}</GrayText>
+            <GrayText style={{ fontSize: 17}}>{phoneFormat(route.params.user.phone)}</GrayText>
 
         <UserButton>
             <ProtocolButtonView>
@@ -51,7 +50,10 @@ const UserScreen = ({ navigation }) => {
 
         <UserAppointment>
             <ScrollView style={{ backgroundColor: "white"}}>
-                <Container>
+                <View style={{ backgroundColor: "white", paddingLeft: 25, paddingTop: 8}}>
+                    <Text style={{ fontSize: 19, fontWeight: 'bold'}}>Тренировки:</Text>
+                </View>
+                <Container style={{ paddingTop: 15}}>
                     {isLoading ? (
                         <ActivityIndicator size="large" color="#2A86FF" />
                     ) : (
@@ -147,9 +149,8 @@ const UserButton = styled.View`
 `;
 
 const UserFullName = styled.Text`
-    /* Имя клиента */
-    font-weight: 800;
-    font-size: 24px;
+    font-weight: bold;
+    font-size: 28px;
     line-height: 30px;
     margin-bottom: 3px;
 `;
